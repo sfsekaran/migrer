@@ -1,0 +1,11 @@
+Description:
+    Data migration generator
+
+Optional Arguments:
+    DESCRIPTION  # desc for the rake task
+
+Example:
+    rails generate data_migration DataMigrationName
+
+    This will create:
+        lib/tasks/data_migrations/<timestamp>_data_migration_name.rake

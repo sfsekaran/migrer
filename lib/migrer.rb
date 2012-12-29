@@ -1,5 +1,7 @@
 require "migrer/version"
 
 module Migrer
-  # Your code goes here...
 end
+
+# Require our engine
+require "migrer/engine"

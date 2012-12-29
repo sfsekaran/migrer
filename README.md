@@ -3,7 +3,7 @@
 
 ### What's with the name?
 
-It's french for migrate. My wife suggested the name, and it was better than
+It's French for migrate. My wife suggested the name, and it was better than
 `morphin_time` or  `flying_v`, say. - @sfsekaran
 
 TODO: Write a gem description

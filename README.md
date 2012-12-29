@@ -3,8 +3,8 @@
 
 ### What's with the name?
 
-It's French for migrate. My wife suggested the name, and it was better than
-`morphin_time` or  `flying_v`, say. - @sfsekaran
+Migrer (me-gray) is French for migrate. My wife suggested the name, and it was much
+less obnoxious than `morphin_time` or  `flying_v`, say. - @sfsekaran
 
 TODO: Write a gem description
 

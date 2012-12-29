@@ -22,6 +22,10 @@ Or install it yourself as:
 
     $ gem install migrer
 
+And install database migrations like so:
+
+    $ rake migrer_engine:install:migrations
+
 ## Usage
 
 TODO: Write usage instructions here

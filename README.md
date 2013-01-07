@@ -24,7 +24,8 @@ Or install it yourself as:
 
 And install database migrations like so:
 
-    $ bundle exec rake railties:install:migrations FROM=migrer_engine
+    $ bundle exec rake railties:install:migrations FROM=migrer
+    $ bundle exec rake db:migrate
 
 ## Usage
 

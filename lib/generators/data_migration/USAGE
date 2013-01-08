@@ -2,10 +2,10 @@ Description:
     Data migration generator
 
 Optional Arguments:
-    DESCRIPTION  # desc for the rake task
+    DESCRIPTION  # a commented description in the created data migration file
 
 Example:
-    rails generate data_migration DataMigrationName
+    rails generate data_migration DataMigrationName "Optional description"
 
     This will create:
-        lib/tasks/data_migrations/<timestamp>_data_migration_name.rake
+        lib/tasks/data_migrations/<timestamp>_data_migration_name.rb

@@ -1,7 +1,8 @@
-namespace :data_migration do
-  <%= description.present? ? 'desc "' + description + '"' : "#desc 'Description of data_migration'" %>
+class <%= name %> < DataMigration
 
-  task <%= name.underscore %>: :environment do
-    #TODO: data_migration code
-  end
+<%= "# #{description}" %>
+
+    def self.run
+      #TODO: data_migration code
+    end
 end

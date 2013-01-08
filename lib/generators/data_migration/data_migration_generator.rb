@@ -11,6 +11,6 @@ class DataMigrationGenerator < Rails::Generators::NamedBase
 
   private
   def file_name
-    "#{ActiveRecord::Generators::Base.next_migration_number('lib/tasks/data_migrations')}_#{name.underscore}.rake"
+    "#{ActiveRecord::Generators::Base.next_migration_number('lib/tasks/data_migrations')}_#{name.underscore}.rb"
   end
 end

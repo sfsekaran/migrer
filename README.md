@@ -45,7 +45,7 @@ And install database migrations like so:
 
 ## Usage
 
-# 1) Create the data migration
+### 1) Create the data migration
 
 Create a data migration:
 
@@ -55,7 +55,7 @@ This will create the file:  lib/tasks/data_migrations/&lt;timestamp&gt;_my_first
 
 Open this file and replace "TODO" with your data migration code!
 
-# 2) Run a task
+### 2) Run a task
 
 Unless you have the RAILS_ENV environment variable already set, prepend this to all of the following commands (replace
 &lt;environment&gt; with the correct Rails environment (development, staging, production, etc.):

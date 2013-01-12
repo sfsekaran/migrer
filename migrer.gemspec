@@ -6,16 +6,18 @@ require 'migrer/version'
 Gem::Specification.new do |gem|
   gem.name          = "migrer"
   gem.version       = Migrer::VERSION
-  gem.authors       = ["Sathya Sekaran"]
+  gem.authors       = ["Sathya Sekaran", "Michael Durnhofer"]
   gem.email         = ["sfsekaran@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{The polite data migration valet.}
+  gem.summary       = %q{The 'migrer' gem helps generate, execute, and keep track of data migrations.}
+  gem.homepage      = "http://github.com/sfsekaran/migrer"
+
+  gem.rubyforge_project = "migrer"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
+  gem.require_paths = ["lib", "script", "db"]
 
   gem.add_runtime_dependency "activerecord", "~> 3.2.2"
 end

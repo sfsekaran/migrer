@@ -49,7 +49,7 @@ And install database migrations like so:
 
 Create a data migration:
 
-    $ bundle exec rails generate MyFirstDataMigration "optional description"
+    $ bundle exec rails generate data_migration MyFirstDataMigration "optional description"
 
 This will create the file:  lib/tasks/data_migrations/&lt;timestamp&gt;_my_first_data_migration.rb
 

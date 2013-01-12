@@ -12,11 +12,13 @@ Migrer creates migration-like tasks for running application scripts. It is prima
 records or running one-time tasks against separate environments.
 
 **What is the difference between this and ActiveRecord migrations?**
+
 Migrations should always be stable and are primarily for altering the structure of a database. Migrer is intended for
 data migrations, or manipulating the data within that structure. Such tasks can become error-prone since they depend on
 the state of models in the codebase, and are best not included in ActiveRecord migrations.
 
 **Why not just create a regular rake task or use a script runner?**
+
 Although Migrer data migrations can be run multiple times, they are primarily suited for one-time tasks (and often for
 tasks that are not intended to be run more than once). Migrer not only creates a structure for these one-time tasks,
 but also keeps track of which data migrations have already been processed. This is especially useful when managing
@@ -49,14 +51,14 @@ Create a data migration:
 
     $ bundle exec rails generate MyFirstDataMigration "optional description"
 
-This will create the file:  lib/tasks/data_migrations/<timestamp>_my_first_data_migration.rb
+This will create the file:  lib/tasks/data_migrations/&lt;timestamp&gt;_my_first_data_migration.rb
 
 Open this file and replace "TODO" with your data migration code!
 
 # 2) Run a task
 
 Unless you have the RAILS_ENV environment variable already set, prepend this to all of the following commands (replace
-<environment> with the correct Rails environment (development, staging, production, etc.):
+&lt;environment&gt; with the correct Rails environment (development, staging, production, etc.):
 
     RAILS_ENV=<environment>
 
@@ -66,7 +68,7 @@ All the following commands will ask for confirmation before executing.
 
     bundle exec rake data:migrate
 
-**Run a single data migration (<version> is the timestamp at the beginning of the data migration file, just like
+**Run a single data migration (&lt;version&gt; is the timestamp at the beginning of the data migration file, just like
 ActiveRecord migrations):**
 
     bundle exec rake data:migration VERSION=<version>

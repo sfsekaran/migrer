@@ -30,7 +30,7 @@ namespace :data do
           unless data_migration[:processed]
             ActiveRecord::Base.connection.execute(
                 "INSERT INTO data_migration_versions
-                 VALUES (NULL, #{version}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+                 VALUES (NULL, '#{version}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
           end
 
           puts "#{data_migration[:class_name]}: migrated (#{t_end - t_start}s)"
@@ -54,7 +54,7 @@ namespace :data do
 
             ActiveRecord::Base.connection.execute(
                 "INSERT INTO data_migration_versions
-                 VALUES (NULL, #{k}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+                 VALUES (NULL, '#{k}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
 
             puts "#{v[:class_name]}: migrated (#{t_end - t_start}s)"
           end
@@ -80,7 +80,7 @@ namespace :data do
           if prompt == "yes"
             ActiveRecord::Base.connection.execute(
                 "INSERT INTO data_migration_versions
-                 VALUES (NULL, #{version}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+                 VALUES (NULL, '#{version}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
 
             puts "#{data_migration[:class_name]}: marked as migrated"
           end
@@ -103,7 +103,7 @@ namespace :data do
       unprocessed_data_migrations.each do |k, v|
         ActiveRecord::Base.connection.execute(
             "INSERT INTO data_migration_versions
-             VALUES (NULL, #{k}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+             VALUES (NULL, '#{k}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
 
         puts "#{v[:class_name]}: marked as migrated"
       end
@@ -127,7 +127,7 @@ namespace :data do
           if prompt == "yes"
             ActiveRecord::Base.connection.execute(
                 "DELETE FROM data_migration_versions
-                 WHERE version = #{version}" )
+                 WHERE version = '#{version}'" )
 
             puts "#{data_migration[:class_name]}: unmarked as migrated"
           end

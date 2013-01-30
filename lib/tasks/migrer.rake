@@ -20,7 +20,7 @@ namespace :data do
           puts "#{data_migration[:class_name]}: migrating"
           t_start = Time.now
 
-          require "#{Rails.root}/lib/tasks/data_migrations/#{data_migration[:basefilename]}"
+          require "#{Rails.root}/db/data_migrate/#{data_migration[:basefilename]}"
           eval(data_migration[:class_name]).run
 
           t_end = Time.now
@@ -43,7 +43,7 @@ namespace :data do
             puts "#{v[:class_name]}: migrating"
             t_start = Time.now
 
-            require "#{Rails.root}/lib/tasks/data_migrations/#{v[:basefilename]}"
+            require "#{Rails.root}/db/data_migrate/#{v[:basefilename]}"
             eval(v[:class_name]).run
 
             t_end = Time.now

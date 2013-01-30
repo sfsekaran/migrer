@@ -8,4 +8,4 @@ Example:
     rails generate data_migration DataMigrationName "Optional description"
 
     This will create:
-        lib/tasks/data_migrations/<timestamp>_data_migration_name.rb
+        db/data_migrate/<timestamp>_data_migration_name.rb

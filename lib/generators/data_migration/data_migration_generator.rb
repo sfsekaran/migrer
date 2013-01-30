@@ -6,11 +6,11 @@ class DataMigrationGenerator < Rails::Generators::NamedBase
 
   def generate_data_migration
     template "data_migration.rb",
-             "lib/tasks/data_migrations/#{file_name}"
+             "db/data_migrate/#{file_name}"
   end
 
   private
   def file_name
-    "#{ActiveRecord::Generators::Base.next_migration_number('lib/tasks/data_migrations')}_#{name.underscore}.rb"
+    "#{ActiveRecord::Generators::Base.next_migration_number('db/data_migrate')}_#{name.underscore}.rb"
   end
 end

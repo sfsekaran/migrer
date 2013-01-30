@@ -1,5 +1,8 @@
-class DataMigration
-  def self.all
+class Migrer::DataMigrationVersion < ActiveRecord::Base
+
+  attr_accessible :version
+
+  def self.all_from_files
     filenames = Dir.entries("#{Rails.root}/lib/tasks/data_migrations").select { |f| /^\d+.*\.rb$/ === f }
     data_migrations = {}
 

@@ -1,8 +1,6 @@
-class <%= name %> < DataMigration
-
-<%= "# #{description}" %>
-
-    def self.run
-      #TODO: data_migration code
-    end
+class <%= name %>
+<%= "\n  # #{description}\n" if description.present? %>
+  def self.run
+    #TODO: data_migration code
+  end
 end

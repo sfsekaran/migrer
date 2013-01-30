@@ -1,10 +1,8 @@
-require 'data_migration'
-
 namespace :data do
   desc "Data migration tasks"
 
   task migrate: :environment do
-    data_migrations = DataMigration.all
+    data_migrations = Migrer::DataMigrationVersion.all_from_files
 
     if (version = ENV['VERSION'])
       data_migration = data_migrations[version]
@@ -28,9 +26,7 @@ namespace :data do
           t_end = Time.now
 
           unless data_migration[:processed]
-            ActiveRecord::Base.connection.execute(
-                "INSERT INTO data_migration_versions
-                 VALUES (NULL, '#{version}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+            Migrer::DataMigrationVersion.create(version: version)
           end
 
           puts "#{data_migration[:class_name]}: migrated (#{t_end - t_start}s)"
@@ -52,9 +48,7 @@ namespace :data do
 
             t_end = Time.now
 
-            ActiveRecord::Base.connection.execute(
-                "INSERT INTO data_migration_versions
-                 VALUES (NULL, '#{k}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
+            Migrer::DataMigrationVersion.create(version: k)
 
             puts "#{v[:class_name]}: migrated (#{t_end - t_start}s)"
           end
@@ -64,7 +58,7 @@ namespace :data do
   end
 
   task mark: :environment do
-    data_migrations = DataMigration.all
+    data_migrations = Migrer::DataMigrationVersion.all_from_files
 
     if (version = ENV['VERSION'])
       data_migration = data_migrations[version]
@@ -78,10 +72,7 @@ namespace :data do
           prompt = $stdin.gets.chomp
 
           if prompt == "yes"
-            ActiveRecord::Base.connection.execute(
-                "INSERT INTO data_migration_versions
-                 VALUES (NULL, '#{version}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
-
+            Migrer::DataMigrationVersion.create(version: version)
             puts "#{data_migration[:class_name]}: marked as migrated"
           end
         end
@@ -94,24 +85,21 @@ namespace :data do
   end
 
   task mark_all: :environment do
-    unprocessed_data_migrations = DataMigration.all.select { |k, v| !v[:processed] }
+    unprocessed_data_migrations = Migrer::DataMigrationVersion.all_from_files.select { |k, v| !v[:processed] }
 
     puts "This will mark all data migrations as already processed. Continue? (responses other than 'yes' will exit)"
 
     prompt = $stdin.gets.chomp
     if prompt == "yes"
       unprocessed_data_migrations.each do |k, v|
-        ActiveRecord::Base.connection.execute(
-            "INSERT INTO data_migration_versions
-             VALUES (NULL, '#{k}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)" )
-
+        Migrer::DataMigrationVersion.create(version: k)
         puts "#{v[:class_name]}: marked as migrated"
       end
     end
   end
 
   task unmark: :environment do
-    data_migrations = DataMigration.all
+    data_migrations = Migrer::DataMigrationVersion.all_from_files
 
     if (version = ENV['VERSION'])
       data_migration = data_migrations[version]
@@ -125,10 +113,7 @@ namespace :data do
           prompt = $stdin.gets.chomp
 
           if prompt == "yes"
-            ActiveRecord::Base.connection.execute(
-                "DELETE FROM data_migration_versions
-                 WHERE version = '#{version}'" )
-
+            Migrer::DataMigrationVersion.find_by_version(version).destroy
             puts "#{data_migration[:class_name]}: unmarked as migrated"
           end
         end
@@ -146,9 +131,7 @@ namespace :data do
     prompt = $stdin.gets.chomp
 
     if prompt == "yes"
-      ActiveRecord::Base.connection.execute(
-          "DELETE FROM data_migration_versions" )
-
+      Migrer::DataMigrationVersion.destroy_all
       puts "Data migration records cleared"
     end
   end

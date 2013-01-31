@@ -89,6 +89,10 @@ ActiveRecord migrations):**
 
     bundle exec rake data:unmark VERSION=<version>
 
+**View all unprocessed data migrations by filename:**
+
+    bundle exec rake data:pending
+
 ## Contributing
 
 1. Fork it

@@ -1,3 +1,5 @@
+require 'migrer/ansi_colors'
+
 namespace :data do
   desc "Data migration tasks"
 
@@ -9,9 +11,9 @@ namespace :data do
 
       if data_migration.present?
         if data_migration[:processed]
-          puts "Data migration already processed. Do you want to run it anyway? (responses other than 'yes' will exit)"
+          puts "Data migration already processed. Do you want to run it anyway? (responses other than 'yes' will exit)".migrer_yellow
         else
-          puts "Starting data migration #{data_migration[:class_name]}. Do you wish to continue? (responses other than 'yes' will exit)"
+          puts "Starting data migration #{data_migration[:class_name]}. Do you wish to continue? (responses other than 'yes' will exit)".migrer_yellow
         end
 
         prompt = $stdin.gets.chomp
@@ -29,15 +31,15 @@ namespace :data do
             Migrer::DataMigrationVersion.create(version: version)
           end
 
-          puts "#{data_migration[:class_name]}: migrated (#{t_end - t_start}s)"
+          puts "#{data_migration[:class_name]}:" + " migrated (#{t_end - t_start}s)".migrer_green
         end
       else
-        puts "No data migration found matching version: #{version}"
+        puts "No data migration found matching version: #{version}".migrer_red
       end
     else
       data_migrations.each do |k, v|
         unless v[:processed]
-          puts "Starting data migration #{v[:class_name]}. Do you wish to continue? (responses other than 'yes' will exit)"
+          puts "Starting data migration #{v[:class_name]}. Do you wish to continue? (responses other than 'yes' will exit)".migrer_yellow
           prompt = $stdin.gets.chomp
           if prompt == "yes"
             puts "#{v[:class_name]}: migrating"
@@ -50,7 +52,7 @@ namespace :data do
 
             Migrer::DataMigrationVersion.create(version: k)
 
-            puts "#{v[:class_name]}: migrated (#{t_end - t_start}s)"
+            puts "#{v[:class_name]}:" + " migrated (#{t_end - t_start}s)".migrer_green
           end
         end
       end
@@ -65,35 +67,35 @@ namespace :data do
 
       if data_migration.present?
         if data_migration[:processed]
-          puts "Data migration already processed."
+          puts "Data migration already processed.".migrer_yellow
         else
-          puts "Data migration #{data_migration[:class_name]} will be marked as processed. Continue? (responses other than 'yes' will exit)"
+          puts "Data migration #{data_migration[:class_name]} will be marked as processed. Continue? (responses other than 'yes' will exit)".migrer_yellow
 
           prompt = $stdin.gets.chomp
 
           if prompt == "yes"
             Migrer::DataMigrationVersion.create(version: version)
-            puts "#{data_migration[:class_name]}: marked as migrated"
+            puts "#{data_migration[:class_name]}:" + " marked as migrated".migrer_green
           end
         end
       else
-        puts "No data migration found matching version: #{version}"
+        puts "No data migration found matching version: #{version}".migrer_red
       end
     else
-      puts "VERSION must be supplied."
+      puts "VERSION must be supplied.".migrer_red
     end
   end
 
   task mark_all: :environment do
     unprocessed_data_migrations = Migrer::DataMigrationVersion.all_from_files.select { |k, v| !v[:processed] }
 
-    puts "This will mark all data migrations as already processed. Continue? (responses other than 'yes' will exit)"
+    puts "This will mark all data migrations as already processed. Continue? (responses other than 'yes' will exit)".migrer_yellow
 
     prompt = $stdin.gets.chomp
     if prompt == "yes"
       unprocessed_data_migrations.each do |k, v|
         Migrer::DataMigrationVersion.create(version: k)
-        puts "#{v[:class_name]}: marked as migrated"
+        puts "#{v[:class_name]}:" + " marked as migrated".migrer_green
       end
     end
   end
@@ -106,33 +108,51 @@ namespace :data do
 
       if data_migration.present?
         if !data_migration[:processed]
-          puts "Data migration not yet processed."
+          puts "Data migration not yet processed.".migrer_yellow
         else
-          puts "Data migration #{data_migration[:class_name]} will be unmarked as processed. Continue? (responses other than 'yes' will exit)"
+          puts "Data migration #{data_migration[:class_name]} will be unmarked as processed. Continue? (responses other than 'yes' will exit)".migrer_yellow
 
           prompt = $stdin.gets.chomp
 
           if prompt == "yes"
             Migrer::DataMigrationVersion.find_by_version(version).destroy
-            puts "#{data_migration[:class_name]}: unmarked as migrated"
+            puts "#{data_migration[:class_name]}:" + " unmarked as migrated".migrer_green
           end
         end
       else
-        puts "No data migration found matching version: #{version}"
+        puts "No data migration found matching version: #{version}".migrer_red
       end
     else
-      puts "VERSION must be supplied."
+      puts "VERSION must be supplied.".migrer_red
     end
   end
 
   task unmark_all: :environment do
-    puts "All data migrations will be unmarked as processed. Continue? (responses other than 'yes' will exit)"
+    puts "All data migrations will be unmarked as processed. Continue? (responses other than 'yes' will exit)".migrer_yellow
 
     prompt = $stdin.gets.chomp
 
     if prompt == "yes"
       Migrer::DataMigrationVersion.destroy_all
-      puts "Data migration records cleared"
+      puts "Data migration records cleared".migrer_green
+    end
+  end
+
+  task pending: :environment do
+    data_migrations = Migrer::DataMigrationVersion.all_from_files
+    pending = data_migrations.reject {|k, v| v[:processed]}
+
+    if data_migrations.present?
+      if pending.present?
+        puts "The following migrations have not yet been processed:".migrer_yellow
+        pending.each do |k, v|
+          puts v[:filename]
+        end
+      else
+        puts "All existing data migrations have been processed.".migrer_yellow
+      end
+    else
+      puts "No data migrations found.".migrer_yellow
     end
   end
 end

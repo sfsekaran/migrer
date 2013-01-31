@@ -1,8 +1,8 @@
 require 'migrer/ansi_colors'
 
 namespace :data do
-  desc "Data migration tasks"
 
+  desc 'Run all unprocessed data migrations or a single data migration if VERSION is specified.'
   task migrate: :environment do
     data_migrations = Migrer::DataMigrationVersion.all_from_files
 
@@ -59,6 +59,7 @@ namespace :data do
     end
   end
 
+  desc 'Mark a single migration as already processed (requires VERSION).'
   task mark: :environment do
     data_migrations = Migrer::DataMigrationVersion.all_from_files
 
@@ -86,6 +87,7 @@ namespace :data do
     end
   end
 
+  desc 'Mark all data migrations as already processed.'
   task mark_all: :environment do
     unprocessed_data_migrations = Migrer::DataMigrationVersion.all_from_files.select { |k, v| !v[:processed] }
 
@@ -100,6 +102,7 @@ namespace :data do
     end
   end
 
+  desc 'Revert a data migration to an unprocessed state (requires VERSION).'
   task unmark: :environment do
     data_migrations = Migrer::DataMigrationVersion.all_from_files
 
@@ -127,6 +130,7 @@ namespace :data do
     end
   end
 
+  desc 'Revert all data migrations to an unprocessed state.'
   task unmark_all: :environment do
     puts "All data migrations will be unmarked as processed. Continue? (responses other than 'yes' will exit)".migrer_yellow
 
@@ -138,6 +142,7 @@ namespace :data do
     end
   end
 
+  desc 'View all unprocessed data migrations by filename.'
   task pending: :environment do
     data_migrations = Migrer::DataMigrationVersion.all_from_files
     pending = data_migrations.reject {|k, v| v[:processed]}

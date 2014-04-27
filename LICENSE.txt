@@ -1,4 +1,4 @@
-Copyright (c) 2012 Sathya Sekaran
+Copyright (c) 2012 Sathya Sekaran, Michael Durnhofer
 
 MIT License
 

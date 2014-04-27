@@ -3,7 +3,7 @@ class Migrer::DataMigrationVersion < ActiveRecord::Base
   attr_accessible :version
 
   def self.all_from_files
-    filenames = Dir.entries("#{Rails.root}/db/data_migrate").select { |f| /^\d+.*\.rb$/ === f }
+    filenames = Dir.entries("#{Rails.root}/db/data_migrate").sort.select { |f| /^\d+.*\.rb$/ === f }
     data_migrations = {}
 
     filenames.each do |f|

@@ -4,8 +4,9 @@ Description:
 Optional Arguments:
     DESCRIPTION  # a commented description in the created data migration file
 
-Example:
+Examples:
     rails generate data_migration DataMigrationName "Optional description"
+    rails generate data_migration data_migration_name "Optional description"
 
     This will create:
         db/data_migrate/<timestamp>_data_migration_name.rb

@@ -43,6 +43,20 @@ And install database migrations like so:
     $ bundle exec rake railties:install:migrations FROM=migrer
     $ bundle exec rake db:migrate
 
+## Configuration
+
+Migrer can be configured (e.g. in an initializer) as follows:
+
+```ruby
+Migrer.configure do |config|
+  config.paranoid = true
+end
+```
+
+Configuration options:
+
+    paranoid (default: false) - If set to true, a prompt will be required before running each data migration.
+
 ## Usage
 
 ### 1) Create the data migration
@@ -62,7 +76,7 @@ Unless you have the RAILS_ENV environment variable already set, prepend this to 
 
     RAILS_ENV=<environment>
 
-All the following commands will ask for confirmation before executing.
+NOTE: If the 'paranoid' configuration variable is set to true, or if the commands are run with the PARANOID=true environment variable, all the following commands will ask for confirmation before executing.
 
 **Run all unprocessed data migrations:**
 

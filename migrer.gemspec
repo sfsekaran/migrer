@@ -6,6 +6,7 @@ require 'migrer/version'
 Gem::Specification.new do |gem|
   gem.name          = "migrer"
   gem.version       = Migrer::VERSION
+  gem.licenses      = ['MIT']
   gem.authors       = ["Sathya Sekaran", "Michael Durnhofer"]
   gem.email         = ["sfsekaran@gmail.com"]
   gem.description   = %q{The polite data migration valet.}
@@ -19,5 +20,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib", "script", "db"]
 
-  gem.add_runtime_dependency "activerecord", "~> 3.2.2"
+  gem.add_runtime_dependency "activerecord", "~> 3.2"
 end

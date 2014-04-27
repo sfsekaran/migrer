@@ -76,7 +76,7 @@ Unless you have the RAILS_ENV environment variable already set, prepend this to 
 
     RAILS_ENV=<environment>
 
-NOTE: If the 'paranoid' configuration variable is set to true, or if the commands are run with the PARANOID=true environment variable, all the following commands will ask for confirmation before executing.
+NOTE: If the 'paranoid' configuration variable is set to true, or if the commands are run with the ```PARANOID=true``` environment variable, all the following commands will ask for confirmation before executing.
 
 **Run all unprocessed data migrations:**
 

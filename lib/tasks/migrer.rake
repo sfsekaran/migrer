@@ -32,7 +32,7 @@ namespace :data do
           t_end = Time.now
 
           unless data_migration[:processed]
-            Migrer::DataMigrationVersion.create(version: version)
+            Migrer::DataMigrationVersion.create_version(version)
           end
 
           puts "#{data_migration[:class_name]}:" + " migrated (#{t_end - t_start}s)".migrer_green
@@ -60,7 +60,7 @@ namespace :data do
 
             t_end = Time.now
 
-            Migrer::DataMigrationVersion.create(version: k)
+            Migrer::DataMigrationVersion.create_version(k)
 
             puts "#{v[:class_name]}:" + " migrated (#{t_end - t_start}s)".migrer_green
           end
@@ -89,7 +89,7 @@ namespace :data do
           end
 
           if can_migrate
-            Migrer::DataMigrationVersion.create(version: version)
+            Migrer::DataMigrationVersion.create_version(version)
             puts "#{data_migration[:class_name]}:" + " marked as migrated".migrer_green
           end
         end
@@ -115,7 +115,7 @@ namespace :data do
 
     if can_migrate
       unprocessed_data_migrations.each do |k, v|
-        Migrer::DataMigrationVersion.create(version: k)
+        Migrer::DataMigrationVersion.create_version(k)
         puts "#{v[:class_name]}:" + " marked as migrated".migrer_green
       end
     end

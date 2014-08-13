@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib", "script", "db"]
 
-  gem.add_runtime_dependency "activerecord", "~> 3.2"
+  gem.add_runtime_dependency "activerecord", ">= 3.2", "< 5.0"
 end
